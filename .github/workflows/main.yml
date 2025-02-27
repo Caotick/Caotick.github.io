@@ -1,8 +1,8 @@
 name: refresh map
 
-on:
-  schedule:
-    - cron: "* * * * *"    #runs at 11:30 UTC everyday
+on: workflow_dispatch
+  # schedule:
+  #  - cron: "* * * * *"    #runs at 11:30 UTC everyday
 
 permissions:
   contents: write
