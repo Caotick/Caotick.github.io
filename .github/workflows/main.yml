@@ -2,7 +2,7 @@ name: refresh map
 
 on:
   schedule:
-    - cron: "34 17 * * *"    #runs at 11:30 UTC everyday
+    - cron: "35 17 * * *"    #runs at 11:30 UTC everyday
 
 jobs:
   getdataandrefreshmap:
@@ -18,7 +18,6 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
-        uses: actions/checkout@v3
         run: |
           python main.py
           git config user.name github-actions
@@ -26,3 +25,4 @@ jobs:
           git add .
           git commit -m "crongenerated"
           git push
+
