@@ -2,7 +2,10 @@ name: refresh map
 
 on:
   schedule:
-    - cron: "30 12 1 * *"    #runs at 11:30 UTC everyday
+    - cron: "* * * * *"    #runs at 11:30 UTC everyday
+
+permissions:
+  contents: write
 
 jobs:
   getdataandrefreshmap:
@@ -20,8 +23,8 @@ jobs:
       - name: execute py script
         run: |
           python main.py
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name Caotick
+          git config user.email quentin.muller@hotmail.ch
           git add .
           git commit -m "crongenerated"
           git push
