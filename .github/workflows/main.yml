@@ -22,8 +22,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
-          while IFS="," read -ra line; do
-            curl --output "${line[0]}.html" "${line[1]}"
+          while IFS="," read -r name url; do
+            curl --output "${name}.html" "$url"
           done <<< url_mapping.txt          
           git config user.name Caotick
           git config user.email quentin.muller@hotmail.ch
