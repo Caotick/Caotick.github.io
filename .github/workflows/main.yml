@@ -1,15 +1,18 @@
 name: refresh map
 
-on:
-  schedule:
-    - cron: "30 11 * * *"    #runs at 11:30 UTC everyday
+on: workflow_dispatch
+  # schedule:
+  #  - cron: "* * * * *"    #runs at 11:30 UTC everyday
+
+permissions:
+  contents: write
 
 jobs:
   getdataandrefreshmap:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content to github runner.
+        uses: actions/checkout@v2 # checkout the repository content to github runner.
       - name: setup python
         uses: actions/setup-python@v4
         with:
@@ -18,11 +21,11 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
-        uses: actions/checkout@v3
         run: |
           python main.py
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name Caotick
+          git config user.email quentin.muller@hotmail.ch
           git add .
           git commit -m "crongenerated"
           git push
+
