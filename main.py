@@ -15,7 +15,7 @@ for url in urls :
     soup_str = str(soup)
     reg = re.compile('Chapter [1-9]+')
     chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
-    last_chapter = max(chap_list)
+    last_chapter = max(chap_list) if len(chap_list) > 0 else 0
     last_chapters.append(int(last_chapter) if last_chapter.is_integer() else last_chapter)
 
 with open("last_chapters.txt", "w") as f:
