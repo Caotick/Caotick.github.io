@@ -22,7 +22,9 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: execute py script
         run: |
-          curl --output "test.html" https://manhuaus.com/manga/magic-emperor-0/
+          while IFS="," read -ra line; do
+            curl --output "${line[0]}.html" "${line[1]}"
+          done <<< url_mapping.txt          
           git config user.name Caotick
           git config user.email quentin.muller@hotmail.ch
           git add .
