@@ -9,7 +9,7 @@ with open('urls.txt') as f:
 last_chapters = []
 
 for url in urls :
-    req = Request(url, headers={'User-Agent': 'Mozilla/6.0'})
+    req = Request(url, headers={'User-Agent': 'Magic Browser'})
     html_page = urlopen(req).read()
     soup = BeautifulSoup(html_page, 'html.parser')
     soup_str = str(soup)
