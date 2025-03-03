@@ -2,22 +2,27 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import re
 
-urls = []
-with open('urls.txt') as f:
-    urls = f.read().splitlines()
+url_mapping = []
+with open('url_mapping.txt') as f:
+    url_mapping = f.read().splitlines()
 
 last_chapters = []
 
-for url in urls :
-    req = Request(url, headers={'User-Agent': 'Magic Browser'})
-    html_page = urlopen(req).read()
-    soup = BeautifulSoup(html_page, 'html.parser')
-    soup_str = str(soup)
-    reg = re.compile('Chapter [1-9]+')
-    chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
-    last_chapter = max(chap_list) if len(chap_list) > 0 else 0.0
-    last_chapters.append(int(last_chapter) if last_chapter.is_integer() else last_chapter)
+names = [x.split(",")[0] for x in url_mapping]
 
-with open("last_chapters.txt", "w") as f:
-    for l in last_chapters :
-        f.write(f"{l}\n")
+html = '''<!DOCTYPE html><html lang="en"><head><body><h1>Test</h1><table><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
+
+for name in names :
+    with open(f"{name}.html", "r") as f :
+        soup = BeautifulSoup(f, 'html.parser')
+        soup_str = str(soup)
+        reg = re.compile('Chapter [1-9]+')
+        chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
+        last_chapter = max(chap_list) if len(chap_list) > 0 else 0.0
+        last_chapter = int(last_chapter) if last_chapter.is_integer() else last_chapter
+        html += f'''<tr><td>{name}</td><td>{last_chapter}</td></tr>'''
+
+html += '''</tbody></table></body></html>'''
+
+with open('index.html', "w") as f :
+    f.write(html)
