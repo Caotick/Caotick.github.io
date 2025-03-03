@@ -13,6 +13,17 @@ jobs:
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2 # checkout the repository content to github runner.
+      - name: HTML download
+        run: |
+          while IFS="," read -r name url; do
+            url=$(echo $url | sed 's/[^ -~]//g')
+            curl --output "${name}.html" ""$url"";
+          done < url_mapping.txt         
+          git config user.name Caotick
+          git config user.email quentin.muller@hotmail.ch
+          git add .
+          git commit -m "crongenerated"
+          git push
       - name: setup python
         uses: actions/setup-python@v4
         with:
@@ -20,16 +31,9 @@ jobs:
       - name: Install dependencies
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: execute py script
+      - name: checkout repo content
+        uses: actions/checkout@v2
+      - name: Run python
         run: |
-          while IFS="," read -r name url; do
-            url=$(echo $url | sed 's/[^ -~]//g')
-            curl --output "${name}.html" ""$url"";
-          done < url_mapping.txt
-          python main.py          
-          git config user.name Caotick
-          git config user.email quentin.muller@hotmail.ch
-          git add .
-          git commit -m "crongenerated"
-          git push
+          python main.py
 
