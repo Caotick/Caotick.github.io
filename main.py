@@ -10,7 +10,7 @@ last_chapters = []
 
 names = [x.split(",")[0] for x in url_mapping]
 
-html = '''<!DOCTYPE html><html lang="en"><head><body><h1>Test</h1><table><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
+html = '''<!DOCTYPE html><html lang="en"><head><style>body { min-height: 100vh; }</style></head><body><h1>Test</h1><table style="border:1px solid black;margin-left:auto;margin-right:auto;"><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
 
 for name in names :
     with open(f"{name}.html", "r") as f :
@@ -20,7 +20,11 @@ for name in names :
         chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
         last_chapter = max(chap_list) if len(chap_list) > 0 else 0.0
         last_chapter = int(last_chapter) if last_chapter.is_integer() else last_chapter
-        html += f'''<tr><td>{name}</td><td>{last_chapter}</td></tr>'''
+        if(i%2==0) :
+            html += f'''<tr style = "background-color:#badeff;"><td>{name}</td><td>{last_chapter}</td></tr>'''
+        else :
+            html += f'''<tr><td>{name}</td><td>{last_chapter}</td></tr>'''
+        
 
 html += '''</tbody></table></body></html>'''
 
