@@ -10,7 +10,7 @@ last_chapters = []
 
 names = [x.split(",")[0] for x in url_mapping]
 
-html = '''<!DOCTYPE html><html lang="en"><head><style>body { min-height: 100vh; }</style></head><body><h1>Test</h1><table style="border:1px solid black;margin-left:auto;margin-right:auto;"><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
+html = '''<!DOCTYPE html><html lang="en"><head><style>body { min-height: 100vh; } td { text-align: center; }</style></head><body><h1>Test</h1><table style="width:25%;height:150%;border:1px solid black;margin-left:auto;margin-right:auto;"><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
 
 for i, name in enumerate(names) :
     with open(f"{name}.html", "r") as f :
