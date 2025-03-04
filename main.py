@@ -12,7 +12,7 @@ names = [x.split(",")[0] for x in url_mapping]
 
 html = '''<!DOCTYPE html><html lang="en"><head><style>body { min-height: 100vh; }</style></head><body><h1>Test</h1><table style="border:1px solid black;margin-left:auto;margin-right:auto;"><thead><th>Manga/Manhua name</th><th>Last Chapter</th></thead><tbody>'''
 
-for name in names :
+for i, name in enumerate(names) :
     with open(f"{name}.html", "r") as f :
         soup = BeautifulSoup(f, 'html.parser')
         soup_str = str(soup)
