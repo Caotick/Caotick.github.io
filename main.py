@@ -20,10 +20,11 @@ for i, name in enumerate(names) :
         chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
         last_chapter = max(chap_list) if len(chap_list) > 0 else 0.0
         last_chapter = int(last_chapter) if last_chapter.is_integer() else last_chapter
+        name_title = name.title()
         if(i%2==0) :
-            html += f'''<tr style = "background-color:#badeff;"><td>{name}</td><td>{last_chapter}</td></tr>'''
+            html += f'''<tr style = "background-color:#badeff;"><td>{name_title}</td><td>{last_chapter}</td></tr>'''
         else :
-            html += f'''<tr><td>{name}</td><td>{last_chapter}</td></tr>'''
+            html += f'''<tr><td>{name_title}</td><td>{last_chapter}</td></tr>'''
         
 
 html += '''</tbody></table></body></html>'''
