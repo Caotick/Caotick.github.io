@@ -16,7 +16,7 @@ for i, name in enumerate(names) :
     with open(f"{name}.html", "r") as f :
         soup = BeautifulSoup(f, 'html.parser')
         soup_str = str(soup)
-        reg = re.compile('[cC]{1}hapter [1-9]+')
+        reg = re.compile('[cC]hapter [0-9]+')
         chap_list = [float(x.split()[-1]) for x in reg.findall(soup_str)]
         last_chapter = max(chap_list) if len(chap_list) > 0 else 0.0
         last_chapter = int(last_chapter) if last_chapter.is_integer() else last_chapter
